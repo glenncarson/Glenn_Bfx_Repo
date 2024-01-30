@@ -40,4 +40,3 @@
       - `chmod +x python_interp.sh`
     - test the file:
       - `./python_interp.sh`
-    - 
