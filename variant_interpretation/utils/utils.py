@@ -1,6 +1,7 @@
 import progressbar
 pbar = None
 
+
 def show_progress(block_num, block_size, total_size):
     global pbar
     if pbar is None:
