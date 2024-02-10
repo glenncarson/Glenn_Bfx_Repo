@@ -4,7 +4,8 @@
 - The tools below are meant to be run in two steps:
   - Step One: Download some open-source Exome VCF's and annotate them using ClinVar
   - Step Two: Do some quick analysis. Are the variants good quality? Did we successfully annotate any variants?
-- I've attached a pre-run version of my analysis at ____. Please take a look, but also look at the library code created for the variant-downloading pipeline.
+- I've attached a pre-run version of my analysis at https://github.com/glenncarson/Glenn_Bfx_Repo/blob/main/analyze_interpreted_variants.md. 
+  - Please take a look, but also look at the library code created for the variant-downloading pipeline.
 
 
 # Tools
