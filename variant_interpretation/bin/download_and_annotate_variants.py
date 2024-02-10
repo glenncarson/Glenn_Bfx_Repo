@@ -7,13 +7,12 @@ import logging
 import pandas as pd
 from pathlib import Path
 from variant_interpretation.variants.interpret_variants import SampleVariants
-from variant_interpretation.variants.download import (download_variants, download_clinvar_vcf)
+from variant_interpretation.variants.download import (
+    download_variants,
+    download_clinvar_vcf,
+)
 
-
-logging.basicConfig(level=logging.INFO, format='%(filename)s:%(lineno)d - %(message)s')
-
-# python variant_interpretation/bin/ddownload_and_annotate_variants.py output_path --samples JAS_N36_SNP JAS_P18_SNP --genome GRCh38 --force_overwrite_download_files True
-
+logging.basicConfig(level=logging.INFO, format="%(filename)s:%(lineno)d - %(message)s")
 
 SUB_DIRS = {
     "variants_vcf_dir": "raw_vcf_files",
@@ -21,7 +20,6 @@ SUB_DIRS = {
     "clinvar_annotated_files_dir": "clinvar_annotated_files",
     "analysis_dir": "analysis_output",
 }
-
 
 
 def parse_args():
@@ -52,11 +50,11 @@ def parse_args():
 
 
 def main(args):
-    logging.info('Creating output paths for downloaded variant files')
+    logging.info("Creating output paths for downloaded variant files")
     for dir_name in SUB_DIRS.values():
         Path(args.output_path, dir_name).mkdir(parents=True, exist_ok=True)
 
-    logging.info('Downloading sample variant files.')
+    logging.info("Downloading sample variant files.")
     # samples_to_analyze = DownloadVariantsForSamples(args.samples, args.genome, args.force_overwrite_download_files) # alt
     samples_to_analyze = []
     for sample in args.samples:  #
@@ -70,7 +68,7 @@ def main(args):
             SampleVariants(sample_id=sample, vcf_path=sample_vcf_path)
         )
 
-    logging.info('Downloading ClinVar annotations.')
+    logging.info("Downloading ClinVar annotations.")
     # clinvar_annotations_download_path = DownloadClinVarAnnotations().download_path # alt
     clinvar_annotations_download_path = "".join(
         (
@@ -86,7 +84,7 @@ def main(args):
         force_overwrite=args.force_overwrite_download_files,
     )
 
-    logging.info('Annotating sample vcf\'s with Clinvar annotations.')
+    logging.info("Annotating sample vcf's with Clinvar annotations.")
     annotated_vcf_path = "".join(
         (args.output_path, "/", SUB_DIRS["clinvar_annotated_files_dir"])
     )
@@ -100,9 +98,9 @@ def main(args):
         sample.vcf_to_records()
         all_variant_records.extend(sample.annotated_records)
 
-    logging.info('Writing out merged variant records to file.')
+    logging.info("Writing out merged variant records to file.")
     output_df_filename = "".join((args.output_path, "/all_variants.csv"))
-    logging.info(f'Output file at: {output_df_filename}')
+    logging.info(f"Output file at: {output_df_filename}")
     all_variants_df = pd.DataFrame.from_records(all_variant_records)
     all_variants_df.to_csv(output_df_filename, index=False)
 

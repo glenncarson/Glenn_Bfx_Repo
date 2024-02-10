@@ -13,15 +13,20 @@ SNPEFF_ANNOTATION_COMMAND_TEMPLATE = "java -Xmx12g -jar {SNPEFF_PATH}SnpSift.jar
 
 
 class SampleVariants:
-    """A class to hold variant information for a sample. It allows variant annotation using a ClinVar annotation file and a method to store vcf entries as records for analysis.
-    """
+    """A class to hold variant information for a sample. It allows variant annotation using a ClinVar annotation file and a method to store vcf entries as records for analysis."""
+
     def __init__(self, sample_id: str, vcf_path: str) -> None:
         self.sample_id = sample_id
         self.sample_vcf = vcf_path
         self.output_annotated_vcf_file_name = None
         self.annotated_records = []
 
-    def annotate_vcf(self, annotations_source_vcf: str, output_path: str, force_overwrite: bool = False) -> None:
+    def annotate_vcf(
+        self,
+        annotations_source_vcf: str,
+        output_path: str,
+        force_overwrite: bool = False,
+    ) -> None:
         """Annotate the sample with variant annotations from ClinVar
         :param annotations_source_vcf: Path to the ClinVar annotations vcf file.
         :param output_path: The output path for the annotated sample vcf file.

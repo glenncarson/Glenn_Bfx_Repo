@@ -1,4 +1,5 @@
 import logging
+
 logging.getLogger(__name__)
 from pathlib import Path
 from urllib.request import urlretrieve
@@ -21,7 +22,9 @@ CLINVAR_VCF_URL_TEMPLATE = (
 )
 
 
-def download_file_from_url(file_url: str, output_file_path: str, force_overwrite: bool = False) -> None:
+def download_file_from_url(
+    file_url: str, output_file_path: str, force_overwrite: bool = False
+) -> None:
     """Download a file from a url and save it
     :param file_url: URL to the file to download
     :param output_file_path: Path to the file to save.
@@ -37,7 +40,10 @@ def download_file_from_url(file_url: str, output_file_path: str, force_overwrite
 
 
 def download_vcf_file_and_index_from_url(
-    file_url: str, output_file_path: str, get_index_file: bool = False, force_overwrite: bool = False
+    file_url: str,
+    output_file_path: str,
+    get_index_file: bool = False,
+    force_overwrite: bool = False,
 ) -> None:
     """Download a vcf file and its index from a url.
     :param file_url: URL to the file to save.
@@ -59,7 +65,10 @@ def download_vcf_file_and_index_from_url(
 
 # add in docstring and types
 def download_variants(
-    sample: str, output_file_path: str, get_index_file: bool = False, force_overwrite:bool = False
+    sample: str,
+    output_file_path: str,
+    get_index_file: bool = False,
+    force_overwrite: bool = False,
 ) -> None:
     """Download a variant file and its index for samples in the SNP_VCF_URLS sample set.
     :param sample: Sample name to download.
@@ -74,7 +83,7 @@ def download_variants(
             f"\nSee: https://figshare.com/articles/dataset/Whole_Exome_Data_VCF_files/13696750"
         )
         # f'\nSee: https://www.nist.gov/programs-projects/genome-bottle')
-    logging.info(f'Downloading vcf for sample {sample}')
+    logging.info(f"Downloading vcf for sample {sample}")
     sample_variants_url = SNP_VCF_URLS[sample]
     download_vcf_file_and_index_from_url(
         sample_variants_url,
@@ -85,7 +94,9 @@ def download_variants(
     return
 
 
-def download_clinvar_vcf(genome: str, output_file_path: str, force_overwrite:bool = False) -> None:
+def download_clinvar_vcf(
+    genome: str, output_file_path: str, force_overwrite: bool = False
+) -> None:
     """Download the ClinVar annotations vcf for a given genome build.
     :param genome: The genome build to use for downloading the ClinVar annotation file.
     :param output_file_path: The target download path of the ClinVar annotation file.
@@ -99,6 +110,9 @@ def download_clinvar_vcf(genome: str, output_file_path: str, force_overwrite:boo
     clinvar_vcf_file_url = CLINVAR_VCF_URL_TEMPLATE.format(genome=genome)
     logging.info(f"Downloading clinvar vcf for {genome}")
     download_vcf_file_and_index_from_url(
-        clinvar_vcf_file_url, output_file_path, get_index_file=True, force_overwrite=force_overwrite
+        clinvar_vcf_file_url,
+        output_file_path,
+        get_index_file=True,
+        force_overwrite=force_overwrite,
     )
     return
