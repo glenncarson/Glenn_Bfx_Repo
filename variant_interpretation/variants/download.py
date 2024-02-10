@@ -7,7 +7,8 @@ from variant_interpretation.utils.utils import show_progress
 
 ALLOWED_GENOMES = ["GRCh37", "GRCh38"]
 
-# some open source Exome data (hg38 aligned VCF's): https://figshare.com/articles/dataset/Whole_Exome_Data_VCF_files/13696750
+# some open source Exome data (hg38 aligned VCF's):
+# https://figshare.com/articles/dataset/Whole_Exome_Data_VCF_files/13696750
 # These are the URL's for SNP VCF's
 SNP_VCF_URLS = {
     "JAS_N36": "https://figshare.com/ndownloader/files/26347618",
@@ -82,7 +83,6 @@ def download_variants(
             f"Sample not in allowed list of samples: {SNP_VCF_URLS.keys()}"
             f"\nSee: https://figshare.com/articles/dataset/Whole_Exome_Data_VCF_files/13696750"
         )
-        # f'\nSee: https://www.nist.gov/programs-projects/genome-bottle')
     logging.info(f"Downloading vcf for sample {sample}")
     sample_variants_url = SNP_VCF_URLS[sample]
     download_vcf_file_and_index_from_url(

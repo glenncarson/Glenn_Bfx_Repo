@@ -18,7 +18,6 @@ SUB_DIRS = {
     "variants_vcf_dir": "raw_vcf_files",
     "clinvar_annotations_dir": "clinvar_annotations",
     "clinvar_annotated_files_dir": "clinvar_annotated_files",
-    "analysis_dir": "analysis_output",
 }
 
 
@@ -38,14 +37,14 @@ def parse_args():
     parser.add_argument(
         "-g",
         "--genome",
-        required=True,
+        default="GRCh38",
         type=str,
         choices=["GRCh38"],
         help="Genome to annotate. Options: GRCh38",
     )
     parser.add_argument("--force_overwrite_download_files", action="store_true")
 
-    args = parser.parse_args()  # makes an object that allows us to retrieve our inputs
+    args = parser.parse_args()
     return args
 
 
@@ -55,9 +54,8 @@ def main(args):
         Path(args.output_path, dir_name).mkdir(parents=True, exist_ok=True)
 
     logging.info("Downloading sample variant files.")
-    # samples_to_analyze = DownloadVariantsForSamples(args.samples, args.genome, args.force_overwrite_download_files) # alt
     samples_to_analyze = []
-    for sample in args.samples:  #
+    for sample in args.samples:
         sample_vcf_path = "".join(
             (args.output_path, "/", SUB_DIRS["variants_vcf_dir"], "/", sample, ".vcf")
         )
@@ -69,7 +67,6 @@ def main(args):
         )
 
     logging.info("Downloading ClinVar annotations.")
-    # clinvar_annotations_download_path = DownloadClinVarAnnotations().download_path # alt
     clinvar_annotations_download_path = "".join(
         (
             args.output_path,
@@ -105,6 +102,5 @@ def main(args):
     all_variants_df.to_csv(output_df_filename, index=False)
 
 
-# script launch logic...
 if __name__ == "__main__":
     main(parse_args())

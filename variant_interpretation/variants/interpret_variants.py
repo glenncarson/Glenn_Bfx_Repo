@@ -9,11 +9,14 @@ import pysam
 logging.getLogger(__name__)
 
 SNPEFF_PATH = os.getenv("SNPEFF_PATH")
-SNPEFF_ANNOTATION_COMMAND_TEMPLATE = "java -Xmx12g -jar {SNPEFF_PATH}SnpSift.jar annotate {annotation_vcf} {vcf_to_annotate} > {output_annotated_vcf}"  # 2> {output_annotated_vcf}.stderr'
+SNPEFF_ANNOTATION_COMMAND_TEMPLATE = """java -Xmx12g -jar {SNPEFF_PATH}SnpSift.jar annotate
+{annotation_vcf} {vcf_to_annotate} > {output_annotated_vcf}"""
 
 
 class SampleVariants:
-    """A class to hold variant information for a sample. It allows variant annotation using a ClinVar annotation file and a method to store vcf entries as records for analysis."""
+    """A class to hold variant information for a sample.
+    It allows variant annotation using a ClinVar annotation file
+    and a method to store vcf entries as records for analysis."""
 
     def __init__(self, sample_id: str, vcf_path: str) -> None:
         self.sample_id = sample_id
@@ -39,7 +42,8 @@ class SampleVariants:
         target_file_exists = os.path.exists(self.output_annotated_vcf_file_name)
         if not target_file_exists or force_overwrite:
             SNPEFF_PATH = os.getenv("SNPEFF_PATH")
-            SNPEFF_ANNOTATION_COMMAND_TEMPLATE = "java -Xmx12g -jar {SNPEFF_PATH}SnpSift.jar annotate {annotation_vcf} {vcf_to_annotate} > {output_annotated_vcf}"  # 2> {output_annotated_vcf}.stderr'
+            SNPEFF_ANNOTATION_COMMAND_TEMPLATE = """java -Xmx12g -jar {SNPEFF_PATH}SnpSift.jar annotate
+            {annotation_vcf} {vcf_to_annotate} > {output_annotated_vcf}"""
             annotation_command = SNPEFF_ANNOTATION_COMMAND_TEMPLATE.format(
                 SNPEFF_PATH=SNPEFF_PATH,
                 annotation_vcf=annotations_source_vcf,
