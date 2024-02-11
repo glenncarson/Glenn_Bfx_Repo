@@ -11,7 +11,7 @@
 # Tools
 ## Part One
 - `variant_interpretation/bin/download_and_annotate_variants.py`
-  - This script download sample vcf files, a clinvar vcf file containing clinical interpretations, annotated the sample vcf records, and then outputs a csv containing all the interpreted variants.
+  - This script downloads sample vcf files, downloads a clinvar vcf file containing clinical interpretations, annotates the sample vcf records, and then outputs a csv containing all the interpreted variants.
 ### usage
 `python variant_interpretation/bin/download_and_annotate_variants.py /Users/glenn.carson/Coding_Workspace/PycharmProjects/Glenn_Bfx_Repo/analysis --samples JAS_N36 JAS_P18 M46 M48 --genome GRCh38`
 `output_path` (required):
@@ -23,7 +23,7 @@
 `genome` (default is GRCh38): 
 - Only GRCh38 is allowed at this time, as the sample vcf files are mapped to this build. 
 `--force_overwrite_download_files` (default is False):
-- if True, overwrites variant files, clinvar annotations, and the annotated vcf files when running the script
+- if set/True, overwrites variant files, clinvar annotations, and the annotated vcf files when running the script
 
 ## Part Two
 - `variant_interpretation/notebooks/analyze_interpreted_variants.ipynb`
